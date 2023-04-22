@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Common\MasterController;
 
+use App\Http\Controllers\Clinic\indexController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,3 +19,9 @@ use App\Http\Controllers\Common\MasterController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('prefectures', [MasterController::class, 'prefectures'])->name('common.prefectures');
+
+Route::post('add/clinic', [indexController::class, 'addClinic']);
+// オプションパラメータ
+Route::post('clinic/list/{category_type?}', [indexController::class, 'getClinicList']);
