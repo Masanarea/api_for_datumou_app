@@ -25,3 +25,6 @@ Route::get('prefectures', [MasterController::class, 'prefectures'])->name('commo
 Route::post('add/clinic', [indexController::class, 'addClinic']);
 // オプションパラメータ
 Route::post('clinic/list/{category_type?}', [indexController::class, 'getClinicList']);
+
+// spinach web app のルーティング
+Route::get('getSentenceList', [App\Http\Controllers\Spinach\indexController::class, 'getSentenceList']);

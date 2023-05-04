@@ -15,4 +15,17 @@ class MyController extends Controller
         echo 'Use testTest';
         exit();
     }
+    public function var_dump($value)
+    {
+        echo '<pre>';
+        var_dump($value);
+        echo '</pre>';
+    }
+    public function var_dump_e($value)
+    {
+        echo '<pre>';
+        var_dump($value);
+        echo '</pre>';
+        exit();
+    }
 }
