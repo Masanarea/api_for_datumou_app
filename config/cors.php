@@ -14,12 +14,16 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login'], // corsを許可するパス（エンドポイント）
+    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login', '/getSentenceList'], // corsを許可するパス（エンドポイント）
 
     'allowed_methods' => ['*'],
 
     // cors error comp here!
     'allowed_origins' => ['*'],
+    //     'allowed_origins' => [
+    //     'http://localhost:3000',
+    //     'https://api-for-datumou-app.vercel.app',
+    // ],
     // 'allowed_origins' => [env('FRONTEND_URL', 'http://localhost')],
 
     'allowed_origins_patterns' => [],
