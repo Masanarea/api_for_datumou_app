@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class indexController extends MyController
 {
-    public function getSentenceList(Request $request, $limit = 10)
+    public function getSentenceList(Request $request)
     {
         // ajax response info
         $result = [
@@ -28,9 +28,17 @@ class indexController extends MyController
             DB::enableQueryLog();
             // $clinics = Clinic::all();
             // $clinics = Clinic::where('delete_flag', DELETE_FLAG_OFF);
-            $sentences = Sentence::where('del_flg', 0)
-                ->pluck('ja_sentence')
-                ->toArray();
+            $limit = $request->query('limit');
+
+            $query = Sentence::where('del_flg', 0);
+
+            if ($limit !== null) {
+                $query->take($limit);
+            } else {
+                $query->take(10);
+            }
+
+            $sentences = $query->pluck('ja_sentence')->toArray();
             // Log::debug('クリニック一覧所得 SQLログ');
             // dump($clinics);
             // var_dump($clinics);
@@ -55,7 +63,10 @@ class indexController extends MyController
             Log::debug(DB::getQueryLog());
             Log::error($e);
             $result['message'] = '予期せぬエラーが発生しました。';
-            $result['errors'] = [];
+            $result['errors'] = [
+                'error_message' => $e->getMessage(),
+                'query' => DB::getQueryLog(),
+            ];
             $result['response_data'] = [];
             return response()->json($result, Response::HTTP_BAD_GATEWAY);
         }
